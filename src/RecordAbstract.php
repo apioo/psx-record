@@ -71,7 +71,7 @@ abstract class RecordAbstract implements RecordInterface
 
     public function jsonSerialize()
     {
-        return $this->getProperties();
+        return $this->getProperties() ?: new \stdClass();
     }
 
     public function __set($name, $value)
