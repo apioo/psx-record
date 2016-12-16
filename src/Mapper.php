@@ -33,7 +33,7 @@ use PSX\Record\Mapper\Rule;
 class Mapper
 {
     /**
-     * Method wich can map all fields of a record to an arbitary class by
+     * Method which can map all fields of a record to an arbitrary class by
      * calling the fitting setter methods if available
      *
      * @param \PSX\Record\RecordInterface $source
