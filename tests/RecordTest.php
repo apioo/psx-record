@@ -21,6 +21,7 @@
 namespace PSX\Record\Tests;
 
 use PSX\Record\Record;
+use PSX\Record\RecordInterface;
 
 /**
  * RecordTest
@@ -223,7 +224,7 @@ class RecordTest extends \PHPUnit_Framework_TestCase
             'title' => 'bar',
         ]);
 
-        $this->assertInstanceOf('PSX\Record\RecordInterface', $record);
+        $this->assertInstanceOf(RecordInterface::class, $record);
         $this->assertEquals(1, $record->id);
         $this->assertEquals('bar', $record->title);
     }
@@ -235,7 +236,7 @@ class RecordTest extends \PHPUnit_Framework_TestCase
             'title' => 'bar',
         ]);
 
-        $this->assertInstanceOf('PSX\Record\RecordInterface', $record);
+        $this->assertInstanceOf(RecordInterface::class, $record);
         $this->assertEquals(1, $record->id);
         $this->assertEquals('bar', $record->title);
     }
@@ -247,6 +248,10 @@ class RecordTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(['foo' => 'bar'], Record::from(['foo' => 'bar'])->getProperties());
         $this->assertEquals(['foo' => 'bar'], Record::from((object) ['foo' => 'bar'])->getProperties());
         $this->assertEquals(['foo' => 'bar'], Record::from($record)->getProperties());
+
+        $record = Record::from($record, 'baz');
+
+        $this->assertEquals('baz', $record->getDisplayName());
     }
 
     /**
@@ -263,7 +268,57 @@ class RecordTest extends \PHPUnit_Framework_TestCase
         $right  = Record::fromArray(['foo' => 'foo']);
         $result = Record::merge($left, $right);
 
-        $this->assertInstanceOf('PSX\Record\RecordInterface', $result);
+        $this->assertInstanceOf(RecordInterface::class, $result);
         $this->assertEquals(['id' => 1, 'foo' => 'foo'], $result->getProperties());
+    }
+
+    public function testIterator()
+    {
+        $record   = Record::fromArray(['id' => 1, 'foo' => 'bar']);
+        $iterator = $record->getIterator();
+
+        $key = key($iterator);
+        $value = current($iterator);
+
+        $this->assertEquals('id', $key);
+        $this->assertEquals(1, $value);
+
+        next($iterator);
+
+        $key = key($iterator);
+        $value = current($iterator);
+
+        $this->assertEquals('foo', $key);
+        $this->assertEquals('bar', $value);
+
+        foreach ($record as $key => $value) {
+        }
+    }
+
+    public function testIsset()
+    {
+        $record = Record::fromArray(['id' => 1, 'foo' => 'bar']);
+        
+        $this->assertTrue(isset($record->id));
+        $this->assertFalse(isset($record->bar));
+    }
+
+    public function testUnset()
+    {
+        $record = Record::fromArray(['id' => 1, 'foo' => 'bar']);
+
+        $this->assertTrue(isset($record->id));
+        unset($record->id);
+        $this->assertFalse(isset($record->id));
+    }
+
+    public function testSetState()
+    {
+        $oldRecord = new Record('foo', ['id' => 1, 'foo' => 'bar']);
+        $newRecord = eval('return ' . var_export($oldRecord, true) . ';');
+
+        $this->assertInstanceOf(RecordInterface::class, $newRecord);
+        $this->assertEquals('foo', $newRecord->getDisplayName());
+        $this->assertEquals(['id' => 1, 'foo' => 'bar'], $newRecord->getProperties());
     }
 }
