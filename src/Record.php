@@ -130,9 +130,19 @@ class Record extends RecordAbstract
      * @param \PSX\Record\RecordInterface $left
      * @param \PSX\Record\RecordInterface $right
      * @return \PSX\Record\RecordInterface
+     * @deprecated
      */
     public static function merge(RecordInterface $left, RecordInterface $right)
     {
         return Record::fromArray(array_merge($left->getProperties(), $right->getProperties()), $right->getDisplayName());
+    }
+
+    /**
+     * @param array $array
+     * @return \PSX\Record\RecordInterface
+     */
+    public static function __set_state($array)
+    {
+        return new static($array['_displayName'], $array['_properties']);
     }
 }
