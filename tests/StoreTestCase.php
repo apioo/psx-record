@@ -21,6 +21,7 @@
 namespace PSX\Record\Tests;
 
 use PSX\Record\Record;
+use PSX\Record\RecordInterface;
 
 /**
  * StoreTestCase
@@ -38,13 +39,13 @@ abstract class StoreTestCase extends \PHPUnit_Framework_TestCase
 
         $record = $store->load('foo');
 
-        $this->assertInstanceOf('PSX\Record\RecordInterface', $record);
+        $this->assertInstanceOf(RecordInterface::class, $record);
         $this->assertEquals('bar', $record->foo);
         $this->assertEquals(null, $store->load('bar'));
     }
 
     /**
-     * @return \PSX\Data\Record\StoreInterface
+     * @return \PSX\Record\StoreInterface
      */
     abstract public function getStore();
 }
