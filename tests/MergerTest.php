@@ -20,6 +20,7 @@
 
 namespace PSX\Record\Tests;
 
+use PHPUnit\Framework\TestCase;
 use PSX\Record\Merger;
 use PSX\Record\Record;
 use PSX\Record\RecordInterface;
@@ -31,7 +32,7 @@ use PSX\Record\RecordInterface;
  * @license http://www.apache.org/licenses/LICENSE-2.0
  * @link    http://phpsx.org
  */
-class MergerTest extends \PHPUnit_Framework_TestCase
+class MergerTest extends TestCase
 {
     public function testMerge()
     {

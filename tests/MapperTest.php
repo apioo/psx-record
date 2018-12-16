@@ -20,6 +20,7 @@
 
 namespace PSX\Record\Tests;
 
+use PHPUnit\Framework\TestCase;
 use PSX\Record\Record;
 use PSX\Record\Mapper;
 use PSX\Record\Mapper\Rule;
@@ -31,7 +32,7 @@ use PSX\Record\Mapper\Rule;
  * @license http://www.apache.org/licenses/LICENSE-2.0
  * @link    http://phpsx.org
  */
-class MapperTest extends \PHPUnit_Framework_TestCase
+class MapperTest extends TestCase
 {
     public function testMap()
     {

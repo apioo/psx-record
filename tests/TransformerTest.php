@@ -20,9 +20,8 @@
 
 namespace PSX\Record\Tests;
 
-use PSX\Record\Merger;
+use PHPUnit\Framework\TestCase;
 use PSX\Record\Record;
-use PSX\Record\RecordInterface;
 use PSX\Record\Transformer;
 
 /**
@@ -32,7 +31,7 @@ use PSX\Record\Transformer;
  * @license http://www.apache.org/licenses/LICENSE-2.0
  * @link    http://phpsx.org
  */
-class TransformerTest extends \PHPUnit_Framework_TestCase
+class TransformerTest extends TestCase
 {
     public function testToArray()
     {
