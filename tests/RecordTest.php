@@ -279,6 +279,8 @@ class RecordTest extends TestCase
         $record   = Record::fromArray(['id' => 1, 'foo' => 'bar']);
         $iterator = $record->getIterator();
 
+        reset($iterator);
+
         $key = key($iterator);
         $value = current($iterator);
 
