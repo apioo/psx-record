@@ -257,11 +257,10 @@ class RecordTest extends TestCase
         $this->assertEquals('baz', $record->getDisplayName());
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testFromInvalid()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         Record::from('foo');
     }
 

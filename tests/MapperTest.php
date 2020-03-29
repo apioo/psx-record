@@ -70,11 +70,10 @@ class MapperTest extends TestCase
         $this->assertEquals('1409961600', $destination->getDate());
     }
 
-    /**
-     * @expectedException \InvalidArgumentException
-     */
     public function testMapInvalidDestination()
     {
+        $this->expectException(\InvalidArgumentException::class);
+
         Mapper::map(new Record(), 'foo', array());
     }
 }
