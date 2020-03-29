@@ -53,7 +53,7 @@ abstract class RecordAbstract implements RecordInterface
 
     public function getIterator()
     {
-        return new ArrayIterator($this->getProperties());
+        return new ArrayIterator($this->getProperties(), ArrayIterator::ARRAY_AS_PROPS);
     }
 
     public function serialize()
