@@ -276,27 +276,27 @@ class RecordTest extends TestCase
 
     public function testIterator()
     {
-        $record   = Record::fromArray(['id' => 1, 'foo' => 'bar']);
-        $iterator = $record->getIterator();
+        $record = Record::fromArray(['id' => 1, 'foo' => 'bar']);
 
-        reset($iterator);
-
-        $key = key($iterator);
-        $value = current($iterator);
-
-        $this->assertEquals('id', $key);
-        $this->assertEquals(1, $value);
-
-        next($iterator);
-
-        $key = key($iterator);
-        $value = current($iterator);
-
-        $this->assertEquals('foo', $key);
-        $this->assertEquals('bar', $value);
-
+        $i = 0;
         foreach ($record as $key => $value) {
+            if ($i === 0) {
+                $this->assertEquals('id', $key);
+                $this->assertEquals(1, $value);
+            } elseif ($i === 1) {
+                $this->assertEquals('foo', $key);
+                $this->assertEquals('bar', $value);
+            }
+
+            $i++;
         }
+
+        $this->assertEquals(2, $i);
+
+        $actual = iterator_to_array($record->getIterator());
+        $expect = ['id' => 1, 'foo' => 'bar'];
+
+        $this->assertEquals($expect, $actual);
     }
 
     public function testIsset()
