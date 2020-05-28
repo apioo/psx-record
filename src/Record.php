@@ -26,28 +26,51 @@ namespace PSX\Record;
  * @author  Christoph Kappestein <christoph.kappestein@gmail.com>
  * @license http://www.apache.org/licenses/LICENSE-2.0
  * @link    http://phpsx.org
+ *
+ * @template T
+ * @extends \PSX\Record\RecordAbstract<T>
  */
 class Record extends RecordAbstract
 {
+    /**
+     * @var string 
+     */
     protected $_displayName;
+
+    /**
+     * @var array<string, T> 
+     */
     protected $_properties;
 
+    /**
+     * @param string $displayName
+     * @param array<string, T> $properties
+     */
     public function __construct($displayName = 'record', array $properties = array())
     {
         $this->_displayName = $displayName;
         $this->_properties  = $properties;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getDisplayName()
     {
         return $this->_displayName;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function setDisplayName($displayName)
     {
         $this->_displayName = $displayName;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getProperties()
     {
         return array_filter($this->_properties, function($value){
@@ -55,21 +78,33 @@ class Record extends RecordAbstract
         });
     }
 
+    /**
+     * @inheritDoc
+     */
     public function setProperties(array $properties)
     {
         $this->_properties = $properties;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getProperty($name)
     {
         return isset($this->_properties[$name]) ? $this->_properties[$name] : null;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function setProperty($name, $value)
     {
         $this->_properties[$name] = $value;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function removeProperty($name)
     {
         if (isset($this->_properties[$name])) {
@@ -77,6 +112,9 @@ class Record extends RecordAbstract
         }
     }
 
+    /**
+     * @inheritDoc
+     */
     public function hasProperty($name)
     {
         return array_key_exists($name, $this->_properties);

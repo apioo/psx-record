@@ -32,13 +32,22 @@ use PSX\Record\RecordInterface;
  */
 class Memory implements StoreInterface
 {
+    /**
+     * @var array
+     */
     protected $protected = array();
 
+    /**
+     * @inheritDoc
+     */
     public function save($key, RecordInterface $record)
     {
         $this->protected[$key] = $record;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function load($key)
     {
         return isset($this->protected[$key]) ? $this->protected[$key] : null;

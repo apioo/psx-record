@@ -37,8 +37,9 @@ class Mapper
      * calling the fitting setter methods if available
      *
      * @param \PSX\Record\RecordInterface $source
-     * @param object $destination
+     * @param mixed $destination
      * @param array $rules
+     * @return void
      */
     public static function map(RecordInterface $source, $destination, array $rules)
     {

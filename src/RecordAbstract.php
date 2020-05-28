@@ -28,67 +28,112 @@ use ArrayIterator;
  * @author  Christoph Kappestein <christoph.kappestein@gmail.com>
  * @license http://www.apache.org/licenses/LICENSE-2.0
  * @link    http://phpsx.org
+ * 
+ * @template T
+ * @implements \PSX\Record\RecordInterface<T>
  */
 abstract class RecordAbstract implements RecordInterface
 {
+    /**
+     * @param string $offset
+     * @param T $value
+     */
     public function offsetSet($offset, $value)
     {
         $this->setProperty($offset, $value);
     }
 
+    /**
+     * @param string $offset
+     * @return bool
+     */
     public function offsetExists($offset)
     {
         return $this->hasProperty($offset);
     }
 
+    /**
+     * @param string $offset
+     */
     public function offsetUnset($offset)
     {
         $this->removeProperty($offset);
     }
 
+    /**
+     * @param string $offset
+     * @return T
+     */
     public function offsetGet($offset)
     {
         return $this->getProperty($offset);
     }
 
+    /**
+     * @return \Traversable<string, T>
+     */
     public function getIterator()
     {
         return new ArrayIterator($this->getProperties(), ArrayIterator::ARRAY_AS_PROPS);
     }
 
+    /**
+     * @return string
+     */
     public function serialize()
     {
         return serialize([$this->getDisplayName(), $this->getProperties()]);
     }
 
+    /**
+     * @param string $data
+     */
     public function unserialize($data)
     {
-        list($displayName, $properties) = unserialize($data);
+        [$displayName, $properties] = unserialize($data);
 
         $this->setDisplayName($displayName);
         $this->setProperties($properties);
     }
 
+    /**
+     * @return object
+     */
     public function jsonSerialize()
     {
         return (object) $this->getProperties();
     }
 
+    /**
+     * @param string $name
+     * @param T $value
+     */
     public function __set($name, $value)
     {
         $this->setProperty($name, $value);
     }
 
+    /**
+     * @param string $name
+     * @return T
+     */
     public function __get($name)
     {
         return $this->getProperty($name);
     }
 
+    /**
+     * @param string $name
+     * @return bool
+     */
     public function __isset($name)
     {
         return $this->hasProperty($name);
     }
 
+    /**
+     * @param string $name
+     */
     public function __unset($name)
     {
         $this->removeProperty($name);

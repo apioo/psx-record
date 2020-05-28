@@ -29,20 +29,39 @@ namespace PSX\Record\Mapper;
  */
 class Rule
 {
+    /**
+     * @var string 
+     */
     protected $name;
+
+    /**
+     * @var mixed
+     */
     protected $value;
 
+    /**
+     * @param string $name
+     * @param mixed $value
+     */
     public function __construct($name, $value = null)
     {
         $this->name  = $name;
         $this->value = $value;
     }
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         return $this->name;
     }
 
+    /**
+     * @param mixed $value
+     * @param mixed $row
+     * @return mixed
+     */
     public function getValue($value, $row = null)
     {
         if ($this->value === null) {

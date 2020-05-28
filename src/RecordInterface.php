@@ -31,6 +31,10 @@ use Serializable;
  * @author  Christoph Kappestein <christoph.kappestein@gmail.com>
  * @license http://www.apache.org/licenses/LICENSE-2.0
  * @link    http://phpsx.org
+ * 
+ * @template T
+ * @implements \ArrayAccess<string, T>
+ * @implements \IteratorAggregate<string, T>
  */
 interface RecordInterface extends ArrayAccess, Serializable, JsonSerializable, IteratorAggregate
 {
@@ -44,21 +48,23 @@ interface RecordInterface extends ArrayAccess, Serializable, JsonSerializable, I
     /**
      * Sets the display name
      *
-     * @return mixed
+     * @param string $displayName
+     * @return void
      */
     public function setDisplayName($displayName);
 
     /**
      * Returns all properties which are set
      *
-     * @return array
+     * @return array<string, T>
      */
     public function getProperties();
 
     /**
      * Sets the available properties
      *
-     * @param array $properties
+     * @param array<string, T> $properties
+     * @return void
      */
     public function setProperties(array $properties);
 
@@ -66,7 +72,7 @@ interface RecordInterface extends ArrayAccess, Serializable, JsonSerializable, I
      * Returns a property
      *
      * @param string $name
-     * @return mixed
+     * @return T|null
      */
     public function getProperty($name);
 
@@ -74,8 +80,8 @@ interface RecordInterface extends ArrayAccess, Serializable, JsonSerializable, I
      * Sets a property
      *
      * @param string $name
-     * @param mixed $value
-     * @return mixed
+     * @param T $value
+     * @return void
      */
     public function setProperty($name, $value);
 
@@ -83,7 +89,7 @@ interface RecordInterface extends ArrayAccess, Serializable, JsonSerializable, I
      * Removes a property
      *
      * @param string $name
-     * @return mixed
+     * @return void
      */
     public function removeProperty($name);
 

@@ -26,6 +26,7 @@ namespace PSX\Record;
  * @author  Christoph Kappestein <christoph.kappestein@gmail.com>
  * @license http://www.apache.org/licenses/LICENSE-2.0
  * @link    http://phpsx.org
+ * @deprecated
  */
 abstract class RecordObject extends Record
 {
@@ -34,11 +35,17 @@ abstract class RecordObject extends Record
         parent::__construct($this->getName(), $this->toArray());
     }
 
+    /**
+     * @return string
+     */
     protected function getName()
     {
-        return lcfirst(substr(strrchr(get_class($this), '\\'), 1));
+        return lcfirst(substr(strrchr(get_class($this), '\\') ?: '', 1));
     }
 
+    /**
+     * @return array
+     */
     protected function toArray()
     {
         $properties = [];
