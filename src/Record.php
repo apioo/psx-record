@@ -133,7 +133,7 @@ class Record extends RecordAbstract
     }
 
     /**
-     * @param array $data
+     * @param iterable $data
      * @return \PSX\Record\RecordInterface
      */
     public static function fromArray(iterable $data): RecordInterface
@@ -151,7 +151,7 @@ class Record extends RecordAbstract
     }
 
     /**
-     * @param mixed $data
+     * @param iterable|\stdClass $data
      * @return \PSX\Record\RecordInterface
      */
     public static function from($data): RecordInterface
