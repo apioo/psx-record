@@ -107,7 +107,7 @@ class Record extends RecordAbstract
     }
 
     /**
-     * @param iterable $record
+     * @inheritDoc
      */
     public function merge(iterable $record): void
     {
@@ -117,7 +117,7 @@ class Record extends RecordAbstract
     }
 
     /**
-     * @param \Closure $filter
+     * @inheritDoc
      */
     public function filter(\Closure $filter): void
     {
@@ -125,7 +125,7 @@ class Record extends RecordAbstract
     }
 
     /**
-     * @param \Closure $filter
+     * @inheritDoc
      */
     public function map(\Closure $filter): void
     {
@@ -147,11 +147,11 @@ class Record extends RecordAbstract
      */
     public static function fromStdClass(\stdClass $data): RecordInterface
     {
-        return new static((array) $data);
+        return new static(get_object_vars($data));
     }
 
     /**
-     * @param iterable|\stdClass $data
+     * @param mixed $data
      * @return \PSX\Record\RecordInterface
      */
     public static function from($data): RecordInterface

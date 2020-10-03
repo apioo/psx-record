@@ -96,7 +96,7 @@ interface RecordInterface extends ArrayAccess, Serializable, JsonSerializable, I
     /**
      * Iterates through all entries and adds them to the record
      * 
-     * @param iterable $record
+     * @param iterable<string, T> $record
      */
     public function merge(iterable $record): void;
 
