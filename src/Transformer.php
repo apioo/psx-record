@@ -33,7 +33,7 @@ class Transformer
      * @param \PSX\Record\RecordInterface $record
      * @return array
      */
-    public static function toArray(RecordInterface $record)
+    public static function toArray(RecordInterface $record): array
     {
         return json_decode(json_encode($record), true);
     }
@@ -42,7 +42,7 @@ class Transformer
      * @param \PSX\Record\RecordInterface $record
      * @return \stdClass
      */
-    public static function toObject(RecordInterface $record)
+    public static function toObject(RecordInterface $record): \stdClass
     {
         return json_decode(json_encode($record), false);
     }
