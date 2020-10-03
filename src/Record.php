@@ -164,4 +164,13 @@ class Record extends RecordAbstract
             throw new \InvalidArgumentException('Can create record only from iterable or stdClass');
         }
     }
+
+    /**
+     * @param array $array
+     * @return \PSX\Record\RecordInterface
+     */
+    public static function __set_state($array)
+    {
+        return new static($array['properties'] ?? []);
+    }
 }

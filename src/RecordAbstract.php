@@ -135,13 +135,4 @@ abstract class RecordAbstract implements RecordInterface
     {
         $this->removeProperty($name);
     }
-
-    /**
-     * @param array $array
-     * @return \PSX\Record\RecordInterface
-     */
-    public static function __set_state($array)
-    {
-        return new static($array['properties'] ?? []);
-    }
 }
