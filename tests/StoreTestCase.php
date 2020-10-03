@@ -36,7 +36,7 @@ abstract class StoreTestCase extends TestCase
     public function testSaveLoad()
     {
         $store = $this->getStore();
-        $store->save('foo', new Record('test', array('foo' => 'bar')));
+        $store->save('foo', new Record(array('foo' => 'bar')));
 
         $record = $store->load('foo');
 

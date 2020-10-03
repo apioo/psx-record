@@ -33,47 +33,25 @@ namespace PSX\Record;
 class Record extends RecordAbstract
 {
     /**
-     * @var string 
-     */
-    protected $_displayName;
-
-    /**
      * @var array<string, T> 
      */
-    protected $_properties;
+    private $properties;
 
     /**
-     * @param string $displayName
      * @param array<string, T> $properties
      */
-    public function __construct($displayName = 'record', array $properties = array())
+    public function __construct(iterable $properties = [])
     {
-        $this->_displayName = $displayName;
-        $this->_properties  = $properties;
+        $this->properties = [];
+        $this->merge($properties);
     }
 
     /**
      * @inheritDoc
      */
-    public function getDisplayName()
+    public function getProperties(): array
     {
-        return $this->_displayName;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function setDisplayName($displayName)
-    {
-        $this->_displayName = $displayName;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getProperties()
-    {
-        return array_filter($this->_properties, function($value){
+        return array_filter($this->properties, function($value){
             return $value !== null;
         });
     }
@@ -81,106 +59,109 @@ class Record extends RecordAbstract
     /**
      * @inheritDoc
      */
-    public function setProperties(array $properties)
+    public function setProperties(array $properties): void
     {
-        $this->_properties = $properties;
+        $this->properties = $properties;
     }
 
     /**
      * @inheritDoc
      */
-    public function getProperty($name)
+    public function getProperty(string $name)
     {
-        return isset($this->_properties[$name]) ? $this->_properties[$name] : null;
+        return isset($this->properties[$name]) ? $this->properties[$name] : null;
     }
 
     /**
      * @inheritDoc
      */
-    public function setProperty($name, $value)
+    public function setProperty(string $name, $value): void
     {
-        $this->_properties[$name] = $value;
+        $this->properties[$name] = $value;
     }
 
     /**
      * @inheritDoc
      */
-    public function removeProperty($name)
+    public function removeProperty(string $name): void
     {
-        if (isset($this->_properties[$name])) {
-            unset($this->_properties[$name]);
+        if (isset($this->properties[$name])) {
+            unset($this->properties[$name]);
         }
     }
 
     /**
      * @inheritDoc
      */
-    public function hasProperty($name)
+    public function hasProperty(string $name): bool
     {
-        return array_key_exists($name, $this->_properties);
+        return array_key_exists($name, $this->properties);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function isEmpty(): bool
+    {
+        return count($this->properties) === 0;
+    }
+
+    /**
+     * @param iterable $record
+     */
+    public function merge(iterable $record): void
+    {
+        foreach ($record as $key => $value) {
+            $this->setProperty($key, $value);
+        }
+    }
+
+    /**
+     * @param \Closure $filter
+     */
+    public function filter(\Closure $filter): void
+    {
+        $this->properties = array_filter($this->properties, $filter);
+    }
+
+    /**
+     * @param \Closure $filter
+     */
+    public function map(\Closure $filter): void
+    {
+        $this->properties = array_map($filter, $this->properties);
     }
 
     /**
      * @param array $data
-     * @param string $name
      * @return \PSX\Record\RecordInterface
      */
-    public static function fromArray(array $data, $name = null)
+    public static function fromArray(iterable $data): RecordInterface
     {
-        return new static($name === null ? 'record' : $name, $data);
+        return new static($data);
     }
 
     /**
      * @param \stdClass $data
-     * @param string $name
      * @return \PSX\Record\RecordInterface
      */
-    public static function fromStdClass(\stdClass $data, $name = null)
+    public static function fromStdClass(\stdClass $data): RecordInterface
     {
-        return new static($name === null ? 'record' : $name, (array) $data);
+        return new static((array) $data);
     }
 
     /**
      * @param mixed $data
-     * @param string $name
      * @return \PSX\Record\RecordInterface
      */
-    public static function from($data, $name = null)
+    public static function from($data): RecordInterface
     {
-        if ($data instanceof RecordInterface) {
-            if ($name !== null) {
-                $data->setDisplayName($name);
-            }
-            return $data;
+        if (is_iterable($data)) {
+            return self::fromArray($data);
         } elseif ($data instanceof \stdClass) {
-            return self::fromStdClass($data, $name);
-        } elseif (is_array($data)) {
-            return self::fromArray($data, $name);
+            return self::fromStdClass($data);
         } else {
-            throw new \InvalidArgumentException('Can create record only from stdClass or array');
+            throw new \InvalidArgumentException('Can create record only from iterable or stdClass');
         }
-    }
-
-    /**
-     * Merges data from two records into a new record. The right record
-     * overwrites values from the left record
-     *
-     * @param \PSX\Record\RecordInterface $left
-     * @param \PSX\Record\RecordInterface $right
-     * @return \PSX\Record\RecordInterface
-     * @deprecated
-     */
-    public static function merge(RecordInterface $left, RecordInterface $right)
-    {
-        return Record::fromArray(array_merge($left->getProperties(), $right->getProperties()), $right->getDisplayName());
-    }
-
-    /**
-     * @param array $array
-     * @return \PSX\Record\RecordInterface
-     */
-    public static function __set_state($array)
-    {
-        return new static($array['_displayName'], $array['_properties']);
     }
 }

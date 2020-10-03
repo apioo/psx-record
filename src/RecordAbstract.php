@@ -82,7 +82,7 @@ abstract class RecordAbstract implements RecordInterface
      */
     public function serialize()
     {
-        return serialize([$this->getDisplayName(), $this->getProperties()]);
+        return serialize($this->getProperties());
     }
 
     /**
@@ -90,10 +90,7 @@ abstract class RecordAbstract implements RecordInterface
      */
     public function unserialize($data)
     {
-        [$displayName, $properties] = unserialize($data);
-
-        $this->setDisplayName($displayName);
-        $this->setProperties($properties);
+        $this->setProperties(unserialize($data));
     }
 
     /**
@@ -137,5 +134,14 @@ abstract class RecordAbstract implements RecordInterface
     public function __unset($name)
     {
         $this->removeProperty($name);
+    }
+
+    /**
+     * @param array $array
+     * @return \PSX\Record\RecordInterface
+     */
+    public static function __set_state($array)
+    {
+        return new static($array['properties'] ?? []);
     }
 }

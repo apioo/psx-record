@@ -39,26 +39,11 @@ use Serializable;
 interface RecordInterface extends ArrayAccess, Serializable, JsonSerializable, IteratorAggregate
 {
     /**
-     * Returns the display name of the object
-     *
-     * @return string
-     */
-    public function getDisplayName();
-
-    /**
-     * Sets the display name
-     *
-     * @param string $displayName
-     * @return void
-     */
-    public function setDisplayName($displayName);
-
-    /**
      * Returns all properties which are set
      *
      * @return array<string, T>
      */
-    public function getProperties();
+    public function getProperties(): array;
 
     /**
      * Sets the available properties
@@ -66,7 +51,7 @@ interface RecordInterface extends ArrayAccess, Serializable, JsonSerializable, I
      * @param array<string, T> $properties
      * @return void
      */
-    public function setProperties(array $properties);
+    public function setProperties(array $properties): void;
 
     /**
      * Returns a property
@@ -74,7 +59,7 @@ interface RecordInterface extends ArrayAccess, Serializable, JsonSerializable, I
      * @param string $name
      * @return T|null
      */
-    public function getProperty($name);
+    public function getProperty(string $name);
 
     /**
      * Sets a property
@@ -83,7 +68,7 @@ interface RecordInterface extends ArrayAccess, Serializable, JsonSerializable, I
      * @param T $value
      * @return void
      */
-    public function setProperty($name, $value);
+    public function setProperty(string $name, $value): void;
 
     /**
      * Removes a property
@@ -91,7 +76,7 @@ interface RecordInterface extends ArrayAccess, Serializable, JsonSerializable, I
      * @param string $name
      * @return void
      */
-    public function removeProperty($name);
+    public function removeProperty(string $name): void;
 
     /**
      * Returns whether a property exist
@@ -99,5 +84,33 @@ interface RecordInterface extends ArrayAccess, Serializable, JsonSerializable, I
      * @param string $name
      * @return boolean
      */
-    public function hasProperty($name);
+    public function hasProperty(string $name): bool;
+
+    /**
+     * Returns whether the record is empty
+     * 
+     * @return boolean
+     */
+    public function isEmpty(): bool;
+
+    /**
+     * Iterates through all entries and adds them to the record
+     * 
+     * @param iterable $record
+     */
+    public function merge(iterable $record): void;
+
+    /**
+     * Filters specific entries out of the map
+     * 
+     * @param \Closure $filter
+     */
+    public function filter(\Closure $filter): void;
+
+    /**
+     * Applies a callback on each value of the map
+     * 
+     * @param \Closure $filter
+     */
+    public function map(\Closure $filter): void;
 }
