@@ -35,7 +35,7 @@ class Session implements StoreInterface
     /**
      * @inheritDoc
      */
-    public function save($key, RecordInterface $record)
+    public function save(string $key, RecordInterface $record): void
     {
         $_SESSION[$key] = $record;
     }
@@ -43,7 +43,7 @@ class Session implements StoreInterface
     /**
      * @inheritDoc
      */
-    public function load($key)
+    public function load(string $key): ?RecordInterface
     {
         return isset($_SESSION[$key]) ? $_SESSION[$key] : null;
     }

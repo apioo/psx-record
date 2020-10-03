@@ -36,7 +36,7 @@ interface StoreInterface
      * @param \PSX\Record\RecordInterface $record
      * @return void
      */
-    public function save($key, RecordInterface $record);
+    public function save(string $key, RecordInterface $record): void;
 
     /**
      * Returns the record from the given key or null
@@ -44,5 +44,5 @@ interface StoreInterface
      * @param string $key
      * @return \PSX\Record\RecordInterface|null
      */
-    public function load($key);
+    public function load(string $key): ?RecordInterface;
 }
