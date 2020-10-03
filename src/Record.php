@@ -38,7 +38,7 @@ class Record extends RecordAbstract
     private $properties;
 
     /**
-     * @param array<string, T> $properties
+     * @param iterable<string, T> $properties
      */
     public function __construct(iterable $properties = [])
     {
