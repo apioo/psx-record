@@ -49,7 +49,7 @@ class Cache implements StoreInterface
     /**
      * @inheritDoc
      */
-    public function save(string $key, RecordInterface $record)
+    public function save(string $key, RecordInterface $record): void
     {
         $item = $this->cache->getItem($key);
         $item->set($record);
