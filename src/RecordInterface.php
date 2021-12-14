@@ -68,28 +68,20 @@ interface RecordInterface extends ArrayAccess, Serializable, JsonSerializable, I
      * @param T $value
      * @return void
      */
-    public function setProperty(string $name, $value): void;
+    public function setProperty(string $name, mixed $value): void;
 
     /**
      * Removes a property
-     *
-     * @param string $name
-     * @return void
      */
     public function removeProperty(string $name): void;
 
     /**
      * Returns whether a property exist
-     *
-     * @param string $name
-     * @return boolean
      */
     public function hasProperty(string $name): bool;
 
     /**
      * Returns whether the record is empty
-     * 
-     * @return boolean
      */
     public function isEmpty(): bool;
 
@@ -102,15 +94,11 @@ interface RecordInterface extends ArrayAccess, Serializable, JsonSerializable, I
 
     /**
      * Filters specific entries out of the map
-     * 
-     * @param \Closure $filter
      */
     public function filter(\Closure $filter): void;
 
     /**
      * Applies a callback on each value of the map
-     * 
-     * @param \Closure $filter
      */
     public function map(\Closure $filter): void;
 }

@@ -33,22 +33,13 @@ use PSX\Record\RecordInterface;
  */
 class Cache implements StoreInterface
 {
-    /**
-     * @var CacheItemPoolInterface 
-     */
-    protected $cache;
+    private CacheItemPoolInterface $cache;
 
-    /**
-     * @param CacheItemPoolInterface $cache
-     */
     public function __construct(CacheItemPoolInterface $cache)
     {
         $this->cache = $cache;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function save(string $key, RecordInterface $record): void
     {
         $item = $this->cache->getItem($key);
@@ -57,9 +48,6 @@ class Cache implements StoreInterface
         $this->cache->save($item);
     }
 
-    /**
-     * @inheritDoc
-     */
     public function load(string $key): ?RecordInterface
     {
         $item = $this->cache->getItem($key);

@@ -35,21 +35,15 @@ class Memory implements StoreInterface
     /**
      * @var array<string, RecordInterface>
      */
-    private $container = [];
+    private array $container = [];
 
-    /**
-     * @inheritDoc
-     */
     public function save(string $key, RecordInterface $record): void
     {
         $this->container[$key] = $record;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function load(string $key): ?RecordInterface
     {
-        return isset($this->container[$key]) ? $this->container[$key] : null;
+        return $this->container[$key] ?? null;
     }
 }

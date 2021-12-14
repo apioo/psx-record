@@ -35,7 +35,7 @@ class Record extends RecordAbstract
     /**
      * @var array<string, T> 
      */
-    private $properties;
+    private array $properties;
 
     /**
      * @param iterable<string, T> $properties
@@ -46,9 +46,6 @@ class Record extends RecordAbstract
         $this->merge($properties);
     }
 
-    /**
-     * @inheritDoc
-     */
     public function getProperties(): array
     {
         return array_filter($this->properties, function($value){
@@ -56,33 +53,29 @@ class Record extends RecordAbstract
         });
     }
 
-    /**
-     * @inheritDoc
-     */
     public function setProperties(array $properties): void
     {
         $this->properties = $properties;
     }
 
     /**
-     * @inheritDoc
+     * @param string $name
+     * @return T
      */
-    public function getProperty(string $name)
+    public function getProperty(string $name): mixed
     {
-        return isset($this->properties[$name]) ? $this->properties[$name] : null;
+        return $this->properties[$name] ?? null;
     }
 
     /**
-     * @inheritDoc
+     * @param string $name
+     * @param T $value
      */
-    public function setProperty(string $name, $value): void
+    public function setProperty(string $name, mixed $value): void
     {
         $this->properties[$name] = $value;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function removeProperty(string $name): void
     {
         if (isset($this->properties[$name])) {
@@ -90,25 +83,16 @@ class Record extends RecordAbstract
         }
     }
 
-    /**
-     * @inheritDoc
-     */
     public function hasProperty(string $name): bool
     {
         return array_key_exists($name, $this->properties);
     }
 
-    /**
-     * @inheritDoc
-     */
     public function isEmpty(): bool
     {
         return count($this->properties) === 0;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function merge(iterable $record): void
     {
         foreach ($record as $key => $value) {
@@ -116,45 +100,27 @@ class Record extends RecordAbstract
         }
     }
 
-    /**
-     * @inheritDoc
-     */
     public function filter(\Closure $filter): void
     {
         $this->properties = array_filter($this->properties, $filter);
     }
 
-    /**
-     * @inheritDoc
-     */
     public function map(\Closure $filter): void
     {
         $this->properties = array_map($filter, $this->properties);
     }
 
-    /**
-     * @param iterable $data
-     * @return \PSX\Record\RecordInterface
-     */
-    public static function fromArray(iterable $data): RecordInterface
+    public static function fromArray(iterable $data): static
     {
         return new static($data);
     }
 
-    /**
-     * @param \stdClass $data
-     * @return \PSX\Record\RecordInterface
-     */
-    public static function fromStdClass(\stdClass $data): RecordInterface
+    public static function fromStdClass(\stdClass $data): static
     {
         return new static(get_object_vars($data));
     }
 
-    /**
-     * @param mixed $data
-     * @return \PSX\Record\RecordInterface
-     */
-    public static function from($data): RecordInterface
+    public static function from(iterable|\stdClass $data): static
     {
         if (is_iterable($data)) {
             return self::fromArray($data);
@@ -165,10 +131,6 @@ class Record extends RecordAbstract
         }
     }
 
-    /**
-     * @param array $array
-     * @return \PSX\Record\RecordInterface
-     */
     public static function __set_state($array)
     {
         return new static($array['properties'] ?? []);

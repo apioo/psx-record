@@ -32,19 +32,13 @@ use PSX\Record\RecordInterface;
  */
 class Session implements StoreInterface
 {
-    /**
-     * @inheritDoc
-     */
     public function save(string $key, RecordInterface $record): void
     {
         $_SESSION[$key] = $record;
     }
 
-    /**
-     * @inheritDoc
-     */
     public function load(string $key): ?RecordInterface
     {
-        return isset($_SESSION[$key]) ? $_SESSION[$key] : null;
+        return $_SESSION[$key] ?? null;
     }
 }

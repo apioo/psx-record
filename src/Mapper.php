@@ -35,18 +35,9 @@ class Mapper
     /**
      * Method which can map all fields of a record to an arbitrary class by
      * calling the fitting setter methods if available
-     *
-     * @param \PSX\Record\RecordInterface $source
-     * @param mixed $destination
-     * @param array $rules
-     * @return void
      */
-    public static function map(RecordInterface $source, $destination, array $rules)
+    public static function map(RecordInterface $source, object $destination, array $rules): void
     {
-        if (!is_object($destination)) {
-            throw new InvalidArgumentException('Destination must be an object');
-        }
-
         $data = $source->getProperties();
 
         foreach ($data as $key => $value) {

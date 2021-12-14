@@ -31,18 +31,11 @@ interface StoreInterface
 {
     /**
      * Saves an record under the given key
-     *
-     * @param string $key
-     * @param \PSX\Record\RecordInterface $record
-     * @return void
      */
     public function save(string $key, RecordInterface $record): void;
 
     /**
      * Returns the record from the given key or null
-     *
-     * @param string $key
-     * @return \PSX\Record\RecordInterface|null
      */
     public function load(string $key): ?RecordInterface;
 }
