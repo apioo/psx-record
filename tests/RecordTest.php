@@ -303,13 +303,6 @@ class RecordTest extends TestCase
         $this->assertEquals(['foo' => 'bar'], Record::from($record)->getProperties());
     }
 
-    public function testFromInvalid()
-    {
-        $this->expectException(\InvalidArgumentException::class);
-
-        Record::from('foo');
-    }
-
     public function testIterator()
     {
         $record = Record::fromArray(['id' => 1, 'foo' => 'bar']);

@@ -48,7 +48,7 @@ class MapperTest extends TestCase
             'date' => '2014-09-06',
         ]);
 
-        $destination = new Destination();
+        $destination = new \PSX\Record\Tests\Mapper\Destination();
         $testCase    = $this;
 
         Mapper::map($source, $destination, array(
@@ -68,82 +68,5 @@ class MapperTest extends TestCase
         $this->assertEquals($source->content, $destination->getContent());
         $this->assertEquals('no-rating', $destination->getLevel());
         $this->assertEquals('1409961600', $destination->getDate());
-    }
-
-    public function testMapInvalidDestination()
-    {
-        $this->expectException(\InvalidArgumentException::class);
-
-        Mapper::map(new Record(), 'foo', array());
-    }
-}
-
-class Destination
-{
-    protected $id;
-    protected $rightLevel;
-    protected $description;
-    protected $content;
-    protected $level;
-    protected $date;
-
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-    
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    public function setRightLevel($rightLevel)
-    {
-        $this->rightLevel = $rightLevel;
-    }
-    
-    public function getRightLevel()
-    {
-        return $this->rightLevel;
-    }
-
-    public function setDescription($description)
-    {
-        $this->description = $description;
-    }
-    
-    public function getDescription()
-    {
-        return $this->description;
-    }
-
-    public function setContent($content)
-    {
-        $this->content = $content;
-    }
-    
-    public function getContent()
-    {
-        return $this->content;
-    }
-
-    public function setLevel($level)
-    {
-        $this->level = $level;
-    }
-    
-    public function getLevel()
-    {
-        return $this->level;
-    }
-
-    public function setDate($date)
-    {
-        $this->date = $date;
-    }
-    
-    public function getDate()
-    {
-        return $this->date;
     }
 }
