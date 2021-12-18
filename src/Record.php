@@ -35,7 +35,7 @@ class Record extends RecordAbstract
     /**
      * @var array<string, T> 
      */
-    private array $properties;
+    protected array $properties;
 
     /**
      * @param iterable<string, T> $properties
