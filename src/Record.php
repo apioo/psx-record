@@ -122,12 +122,10 @@ class Record extends RecordAbstract
 
     public static function from(iterable|\stdClass $data): static
     {
-        if (is_iterable($data)) {
-            return self::fromArray($data);
-        } elseif ($data instanceof \stdClass) {
+        if ($data instanceof \stdClass) {
             return self::fromStdClass($data);
         } else {
-            throw new \InvalidArgumentException('Can create record only from iterable or stdClass');
+            return self::fromArray($data);
         }
     }
 
