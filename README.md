@@ -1,5 +1,5 @@
-PSX Record
-===
+
+# Record
 
 ## About
 
