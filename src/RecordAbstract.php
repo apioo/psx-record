@@ -38,7 +38,7 @@ abstract class RecordAbstract implements RecordInterface
      * @param string $offset
      * @param T $value
      */
-    public function offsetSet($offset, $value)
+    public function offsetSet(mixed $offset, mixed $value): void
     {
         $this->setProperty($offset, $value);
     }
@@ -47,7 +47,7 @@ abstract class RecordAbstract implements RecordInterface
      * @param string $offset
      * @return bool
      */
-    public function offsetExists($offset)
+    public function offsetExists(mixed $offset): bool
     {
         return $this->hasProperty($offset);
     }
@@ -55,7 +55,7 @@ abstract class RecordAbstract implements RecordInterface
     /**
      * @param string $offset
      */
-    public function offsetUnset($offset)
+    public function offsetUnset(mixed $offset): void
     {
         $this->removeProperty($offset);
     }
@@ -64,7 +64,7 @@ abstract class RecordAbstract implements RecordInterface
      * @param string $offset
      * @return T
      */
-    public function offsetGet($offset)
+    public function offsetGet(mixed $offset): mixed
     {
         return $this->getProperty($offset);
     }
@@ -72,25 +72,9 @@ abstract class RecordAbstract implements RecordInterface
     /**
      * @return \Traversable<string, T>
      */
-    public function getIterator()
+    public function getIterator(): \Traversable
     {
         return new ArrayIterator($this->getProperties(), ArrayIterator::ARRAY_AS_PROPS);
-    }
-
-    /**
-     * @return string
-     */
-    public function serialize()
-    {
-        return serialize($this->getProperties());
-    }
-
-    /**
-     * @param string $data
-     */
-    public function unserialize($data)
-    {
-        $this->setProperties(unserialize($data));
     }
 
     /**
@@ -99,6 +83,16 @@ abstract class RecordAbstract implements RecordInterface
     public function jsonSerialize()
     {
         return (object) $this->getProperties();
+    }
+
+    public function __serialize()
+    {
+        return $this->getProperties();
+    }
+
+    public function __unserialize(array $data)
+    {
+        $this->setProperties($data);
     }
 
     /**

@@ -36,7 +36,7 @@ use Serializable;
  * @implements \ArrayAccess<string, T>
  * @implements \IteratorAggregate<string, T>
  */
-interface RecordInterface extends ArrayAccess, Serializable, JsonSerializable, IteratorAggregate
+interface RecordInterface extends ArrayAccess, JsonSerializable, IteratorAggregate
 {
     /**
      * Returns all properties which are set
