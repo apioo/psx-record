@@ -98,7 +98,7 @@ interface RecordInterface extends ArrayAccess, JsonSerializable, IteratorAggrega
      *
      * @param T $value
      */
-    public function put(string $name, mixed $value): void;
+    public function put(string $key, mixed $value): void;
 
     /**
      * Copies all of the mappings from the specified map to this map
@@ -126,7 +126,7 @@ interface RecordInterface extends ArrayAccess, JsonSerializable, IteratorAggrega
     /**
      * Replaces the entry for the specified key only if it is currently mapped to some value
      */
-    public function replace(string $key, mixed $value);
+    public function replace(string $key, mixed $value): void;
 
     /**
      * Replaces the entry for the specified key only if currently mapped to the specified value

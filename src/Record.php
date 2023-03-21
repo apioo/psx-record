@@ -29,11 +29,13 @@ namespace PSX\Record;
  *
  * @template T
  * @implements \PSX\Record\RecordInterface<T>
+ * @psalm-consistent-constructor
+ * @psalm-consistent-templates
  */
 class Record implements RecordInterface
 {
     /**
-     * @var array<string, T> 
+     * @var array<string, T>
      */
     protected array $properties;
 
@@ -43,7 +45,7 @@ class Record implements RecordInterface
     public function __construct(iterable $properties = [])
     {
         $this->properties = [];
-        $this->merge($properties);
+        $this->putAll($properties);
     }
 
     public function clear(): void
@@ -154,7 +156,7 @@ class Record implements RecordInterface
         }
     }
 
-    public function replace(string $key, mixed $value)
+    public function replace(string $key, mixed $value): void
     {
         if (isset($this->properties[$key])) {
             $this->properties[$key] = $value;
@@ -241,6 +243,9 @@ class Record implements RecordInterface
         return $this->getAll();
     }
 
+    /**
+     * @param array<string, mixed> $data
+     */
     public function __unserialize(array $data)
     {
         $this->putAll($data);
@@ -342,9 +347,7 @@ class Record implements RecordInterface
      */
     public function merge(iterable $record): void
     {
-        foreach ($record as $key => $value) {
-            $this->setProperty($key, $value);
-        }
+        $this->putAll($record);
     }
 
     /**
@@ -374,6 +377,9 @@ class Record implements RecordInterface
         }
     }
 
+    /**
+     * @param array<string, mixed> $array
+     */
     public static function __set_state($array)
     {
         return new static($array['properties'] ?? []);
