@@ -22,38 +22,47 @@ namespace PSX\Record\Tests;
 
 use PHPUnit\Framework\TestCase;
 use PSX\Record\Record;
-use PSX\Record\Transformer;
+use PSX\Record\RecordInterface;
 
 /**
- * TransformerTest
+ * NamedConstructorTest
  *
  * @author  Christoph Kappestein <christoph.kappestein@gmail.com>
  * @license http://www.apache.org/licenses/LICENSE-2.0
  * @link    https://phpsx.org
  */
-class TransformerTest extends TestCase
+class NamedConstructorTest extends TestCase
 {
-    public function testToArray()
+    public function testFromArray()
     {
         $record = Record::fromArray([
             'id' => 1,
-            'foo' => Record::fromArray([
-                'foo' => 'bar'
-            ]),
+            'title' => 'bar',
         ]);
 
-        $this->assertEquals(['id' => 1, 'foo' => ['foo' => 'bar']], Transformer::toArray($record));
+        $this->assertInstanceOf(RecordInterface::class, $record);
+        $this->assertEquals(1, $record->id);
+        $this->assertEquals('bar', $record->title);
     }
 
-    public function testToObject()
+    public function testFromStdClass()
     {
-        $record = Record::fromArray([
+        $record = Record::fromStdClass((object)[
             'id' => 1,
-            'foo' => Record::fromArray([
-                'foo' => 'bar'
-            ]),
+            'title' => 'bar',
         ]);
 
-        $this->assertEquals((object) ['id' => 1, 'foo' => (object) ['foo' => 'bar']], Transformer::toObject($record));
+        $this->assertInstanceOf(RecordInterface::class, $record);
+        $this->assertEquals(1, $record->id);
+        $this->assertEquals('bar', $record->title);
+    }
+
+    public function testFrom()
+    {
+        $record = Record::from(['foo' => 'bar']);
+
+        $this->assertEquals(['foo' => 'bar'], Record::from(['foo' => 'bar'])->getProperties());
+        $this->assertEquals(['foo' => 'bar'], Record::from((object)['foo' => 'bar'])->getProperties());
+        $this->assertEquals(['foo' => 'bar'], Record::from($record)->getProperties());
     }
 }

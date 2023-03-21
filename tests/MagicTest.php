@@ -3,7 +3,7 @@
  * PSX is an open source PHP framework to develop RESTful APIs.
  * For the current version and information visit <https://phpsx.org>
  *
- * Copyright 2010-2022 Christoph Kappestein <christoph.kappestein@gmail.com>
+ * Copyright 2010-2023 Christoph Kappestein <christoph.kappestein@gmail.com>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,92 +25,20 @@ use PSX\Record\Record;
 use PSX\Record\RecordInterface;
 
 /**
- * RecordTest
+ * MagicTest
  *
  * @author  Christoph Kappestein <christoph.kappestein@gmail.com>
  * @license http://www.apache.org/licenses/LICENSE-2.0
  * @link    https://phpsx.org
  */
-class RecordTest extends TestCase
+class MagicTest extends TestCase
 {
-    public function testGetProperty()
-    {
-        $record = new Record(array(
-            'id'    => 1,
-            'title' => 'bar',
-        ));
-
-        $this->assertEquals(1, $record->getProperty('id'));
-        $this->assertEquals('bar', $record->getProperty('title'));
-    }
-
-    public function testSetProperty()
-    {
-        $record = new Record(array(
-            'id'    => 1,
-            'title' => 'bar',
-        ));
-
-        $this->assertEquals(1, $record->getProperty('id'));
-
-        $record->setProperty('id', 2);
-
-        $this->assertEquals(2, $record->getProperty('id'));
-    }
-
-    public function testRemoveProperty()
-    {
-        $record = new Record(array(
-            'id'    => 1,
-            'title' => 'bar',
-        ));
-
-        $this->assertTrue($record->hasProperty('id'));
-
-        $record->removeProperty('id');
-
-        $this->assertFalse($record->hasProperty('id'));
-    }
-
-    public function testHasProperty()
-    {
-        $record = new Record(array(
-            'id'    => 1,
-            'title' => 'bar',
-        ));
-
-        $this->assertTrue($record->hasProperty('id'));
-    }
-
-    public function testIsEmpty()
-    {
-        $record = new Record(array(
-            'id'    => 1,
-            'title' => 'bar',
-        ));
-
-        $this->assertTrue($record->hasProperty('id'));
-    }
-
-    public function testMerge()
-    {
-        $record = new Record(array(
-            'id'    => 1,
-            'title' => 'bar',
-        ));
-
-        $record->merge(['foo' => 'bar']);
-        $record->merge(Record::fromArray(['bar' => 'bar']));
-
-        $this->assertTrue($record->hasProperty('id'));
-    }
-
     public function testOffsetSet()
     {
-        $record = new Record(array(
-            'id'    => 1,
+        $record = new Record([
+            'id' => 1,
             'title' => 'bar',
-        ));
+        ]);
 
         $this->assertEquals(1, $record['id']);
 
@@ -121,20 +49,20 @@ class RecordTest extends TestCase
 
     public function testOffsetExists()
     {
-        $record = new Record(array(
-            'id'    => 1,
+        $record = new Record([
+            'id' => 1,
             'title' => 'bar',
-        ));
+        ]);
 
         $this->assertTrue(isset($record['id']));
     }
 
     public function testOffsetUnset()
     {
-        $record = new Record(array(
-            'id'    => 1,
+        $record = new Record([
+            'id' => 1,
             'title' => 'bar',
-        ));
+        ]);
 
         $this->assertTrue(isset($record['id']));
 
@@ -145,10 +73,10 @@ class RecordTest extends TestCase
 
     public function testGetMagicGetter()
     {
-        $record = new Record(array(
-            'id'    => 1,
+        $record = new Record([
+            'id' => 1,
             'title' => 'bar',
-        ));
+        ]);
 
         $this->assertEquals(1, $record->id);
         $this->assertEquals('bar', $record->title);
@@ -156,10 +84,10 @@ class RecordTest extends TestCase
 
     public function testOffsetGet()
     {
-        $record = new Record(array(
-            'id'    => 1,
+        $record = new Record([
+            'id' => 1,
             'title' => 'bar',
-        ));
+        ]);
 
         $this->assertEquals(1, $record['id']);
         $this->assertEquals('bar', $record['title']);
@@ -167,10 +95,10 @@ class RecordTest extends TestCase
 
     public function testSetMagicSetter()
     {
-        $record = new Record(array(
-            'id'    => 1,
+        $record = new Record([
+            'id' => 1,
             'title' => 'bar',
-        ));
+        ]);
 
         $this->assertEquals(1, $record->id);
         $this->assertEquals('bar', $record->title);
@@ -182,51 +110,12 @@ class RecordTest extends TestCase
         $this->assertEquals('foo', $record->title);
     }
 
-    public function testGetProperties()
-    {
-        $fields = array(
-            'id'    => 1,
-            'title' => 'bar',
-        );
-        $record = new Record($fields);
-
-        $this->assertEquals($fields, $record->getProperties());
-    }
-
-    public function testFilter()
-    {
-        $fields = array(
-            'id'    => 1,
-            'title' => 'bar',
-        );
-        $record = new Record($fields);
-        $record->filter(function($value){
-            return $value !== 1;
-        });
-
-        $this->assertEquals(['title' => 'bar'], $record->getProperties());
-    }
-
-    public function testMap()
-    {
-        $fields = array(
-            'id'    => 1,
-            'title' => 'bar',
-        );
-        $record = new Record($fields);
-        $record->map(function($value){
-            return strtoupper($value);
-        });
-
-        $this->assertEquals(['id' => 1, 'title' => 'BAR'], $record->getProperties());
-    }
-
     public function testSerialize()
     {
-        $record = new Record(array(
-            'id'    => 1,
+        $record = new Record([
+            'id' => 1,
             'title' => 'bar',
-        ));
+        ]);
 
         $this->assertEquals(1, $record->id);
         $this->assertEquals('bar', $record->title);
@@ -239,10 +128,10 @@ class RecordTest extends TestCase
 
     public function testJsonEncode()
     {
-        $record = new Record(array(
-            'id'    => 1,
+        $record = new Record([
+            'id' => 1,
             'title' => 'bar',
-        ));
+        ]);
 
         $expect = '{"id": 1, "title": "bar"}';
 
@@ -260,47 +149,14 @@ class RecordTest extends TestCase
 
     public function testBadProperty()
     {
-        $record = new Record(array(
-            'id'    => 1,
+        $record = new Record([
+            'id' => 1,
             'title' => 'bar',
-        ));
+        ]);
 
         $result = $record->foo;
 
         $this->assertNull($result);
-    }
-
-    public function testFromArray()
-    {
-        $record = Record::fromArray([
-            'id'    => 1,
-            'title' => 'bar',
-        ]);
-
-        $this->assertInstanceOf(RecordInterface::class, $record);
-        $this->assertEquals(1, $record->id);
-        $this->assertEquals('bar', $record->title);
-    }
-
-    public function testFromStdClass()
-    {
-        $record = Record::fromStdClass((object) [
-            'id'    => 1,
-            'title' => 'bar',
-        ]);
-
-        $this->assertInstanceOf(RecordInterface::class, $record);
-        $this->assertEquals(1, $record->id);
-        $this->assertEquals('bar', $record->title);
-    }
-
-    public function testFrom()
-    {
-        $record = Record::from(['foo' => 'bar']);
-
-        $this->assertEquals(['foo' => 'bar'], Record::from(['foo' => 'bar'])->getProperties());
-        $this->assertEquals(['foo' => 'bar'], Record::from((object) ['foo' => 'bar'])->getProperties());
-        $this->assertEquals(['foo' => 'bar'], Record::from($record)->getProperties());
     }
 
     public function testIterator()
@@ -331,7 +187,7 @@ class RecordTest extends TestCase
     public function testIsset()
     {
         $record = Record::fromArray(['id' => 1, 'foo' => 'bar']);
-        
+
         $this->assertTrue(isset($record->id));
         $this->assertFalse(isset($record->bar));
     }
