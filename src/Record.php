@@ -30,7 +30,6 @@ namespace PSX\Record;
  * @template T
  * @implements \PSX\Record\RecordInterface<T>
  * @psalm-consistent-constructor
- * @psalm-consistent-templates
  */
 class Record implements RecordInterface
 {
@@ -358,11 +357,17 @@ class Record implements RecordInterface
         $this->properties = array_map($filter, $this->properties);
     }
 
+    /**
+     * @psalm-suppress UnsafeGenericInstantiation
+     */
     public static function fromArray(iterable $data): static
     {
         return new static($data);
     }
 
+    /**
+     * @psalm-suppress UnsafeGenericInstantiation
+     */
     public static function fromStdClass(\stdClass $data): static
     {
         return new static(get_object_vars($data));
