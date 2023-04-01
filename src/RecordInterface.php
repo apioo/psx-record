@@ -23,7 +23,6 @@ namespace PSX\Record;
 use ArrayAccess;
 use IteratorAggregate;
 use JsonSerializable;
-use Serializable;
 
 /**
  * RecordInterface
