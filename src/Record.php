@@ -54,7 +54,7 @@ class Record implements RecordInterface
 
     public function containsKey(string $key): bool
     {
-        return isset($this->properties[$key]);
+        return array_key_exists($key, $this->properties);
     }
 
     public function containsValue(mixed $value): bool
