@@ -360,7 +360,7 @@ class Record implements RecordInterface
     /**
      * @psalm-suppress UnsafeGenericInstantiation
      */
-    public static function fromArray(iterable $data): static
+    public static function fromIterable(iterable $data): static
     {
         return new static($data);
     }
@@ -368,17 +368,35 @@ class Record implements RecordInterface
     /**
      * @psalm-suppress UnsafeGenericInstantiation
      */
+    public static function fromObject(object $data): static
+    {
+        return new static(get_object_vars($data));
+    }
+
+    /**
+     * @psalm-suppress UnsafeGenericInstantiation
+     * @deprecated
+     */
+    public static function fromArray(iterable $data): static
+    {
+        return new static($data);
+    }
+
+    /**
+     * @psalm-suppress UnsafeGenericInstantiation
+     * @deprecated
+     */
     public static function fromStdClass(\stdClass $data): static
     {
         return new static(get_object_vars($data));
     }
 
-    public static function from(iterable|\stdClass $data): static
+    public static function from(iterable|object $data): static
     {
-        if ($data instanceof \stdClass) {
-            return self::fromStdClass($data);
+        if (is_iterable($data)) {
+            return self::fromIterable($data);
         } else {
-            return self::fromArray($data);
+            return self::fromObject($data);
         }
     }
 

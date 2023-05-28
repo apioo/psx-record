@@ -57,6 +57,30 @@ class NamedConstructorTest extends TestCase
         $this->assertEquals('bar', $record->title);
     }
 
+    public function testFromIterable()
+    {
+        $record = Record::fromIterable([
+            'id' => 1,
+            'title' => 'bar',
+        ]);
+
+        $this->assertInstanceOf(RecordInterface::class, $record);
+        $this->assertEquals(1, $record->id);
+        $this->assertEquals('bar', $record->title);
+    }
+
+    public function testFromObject()
+    {
+        $record = Record::fromObject((object)[
+            'id' => 1,
+            'title' => 'bar',
+        ]);
+
+        $this->assertInstanceOf(RecordInterface::class, $record);
+        $this->assertEquals(1, $record->id);
+        $this->assertEquals('bar', $record->title);
+    }
+
     public function testFrom()
     {
         $record = Record::from(['foo' => 'bar']);
