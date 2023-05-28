@@ -375,6 +375,7 @@ class Record implements RecordInterface
 
     /**
      * @psalm-suppress UnsafeGenericInstantiation
+     * @param array<string, mixed> $data
      */
     public static function fromArray(array $data): static
     {
