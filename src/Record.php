@@ -375,9 +375,8 @@ class Record implements RecordInterface
 
     /**
      * @psalm-suppress UnsafeGenericInstantiation
-     * @deprecated
      */
-    public static function fromArray(iterable $data): static
+    public static function fromArray(array $data): static
     {
         return new static($data);
     }
