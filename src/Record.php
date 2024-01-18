@@ -36,14 +36,13 @@ class Record implements RecordInterface
     /**
      * @var array<string, T>
      */
-    protected array $properties;
+    protected array $properties = [];
 
     /**
      * @param iterable<string, T> $properties
      */
     public function __construct(iterable $properties = [])
     {
-        $this->properties = [];
         $this->putAll($properties);
     }
 
