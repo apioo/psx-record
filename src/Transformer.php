@@ -29,12 +29,12 @@ namespace PSX\Record;
  */
 class Transformer
 {
-    public static function toArray(RecordInterface $record): array
+    public static function toArray(\JsonSerializable $record): array
     {
         return json_decode(json_encode($record), true);
     }
 
-    public static function toObject(RecordInterface $record): \stdClass
+    public static function toObject(\JsonSerializable $record): \stdClass
     {
         return json_decode(json_encode($record), false);
     }
