@@ -32,8 +32,8 @@ use JsonSerializable;
  * @link    https://phpsx.org
  * 
  * @template T
- * @implements \ArrayAccess<string, T>
- * @implements \IteratorAggregate<string, T>
+ * @extends ArrayAccess<string, T>
+ * @extends IteratorAggregate<string, T>
  */
 interface RecordInterface extends ArrayAccess, JsonSerializable, IteratorAggregate
 {
