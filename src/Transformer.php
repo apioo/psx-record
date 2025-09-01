@@ -20,6 +20,9 @@
 
 namespace PSX\Record;
 
+use JsonSerializable;
+use stdClass;
+
 /**
  * Transformer
  *
@@ -29,14 +32,24 @@ namespace PSX\Record;
  */
 class Transformer
 {
-    public static function toArray(\JsonSerializable $record): array
+    public static function toArray(JsonSerializable $record): array
     {
-        return json_decode(json_encode($record), true);
+        $data = json_encode($record);
+        if ($data === false) {
+            return [];
+        }
+
+        return json_decode($data, true);
     }
 
-    public static function toObject(\JsonSerializable $record): \stdClass
+    public static function toObject(JsonSerializable $record): stdClass
     {
-        return json_decode(json_encode($record), false);
+        $data = json_encode($record);
+        if ($data === false) {
+            return new stdClass();
+        }
+
+        return json_decode($data, false);
     }
 }
 
