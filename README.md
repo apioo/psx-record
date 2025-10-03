@@ -1,8 +1,6 @@
 
 # Record
 
-## About
-
 This package provides a simple HashMap implementation inspired by the Java HashMap API.
 The following example shows how to use the record class:
 
