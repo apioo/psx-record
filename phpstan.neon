@@ -1,0 +1,8 @@
+parameters:
+	level: 5
+	treatPhpDocTypesAsCertain: false
+	universalObjectCratesClasses:
+	    - PSX\Record\Record
+	paths:
+		- src
+		- tests
