@@ -207,6 +207,6 @@ class MagicTest extends TestCase
         $newRecord = eval('return ' . var_export($oldRecord, true) . ';');
 
         $this->assertInstanceOf(RecordInterface::class, $newRecord);
-        $this->assertEquals(['id' => 1, 'foo' => 'bar'], $newRecord->getProperties());
+        $this->assertEquals(['id' => 1, 'foo' => 'bar'], $newRecord->getAll());
     }
 }

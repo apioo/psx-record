@@ -41,8 +41,8 @@ class NamedConstructorTest extends TestCase
         ]);
 
         $this->assertInstanceOf(RecordInterface::class, $record);
-        $this->assertEquals(1, $record->id);
-        $this->assertEquals('bar', $record->title);
+        $this->assertEquals(1, $record->get('id'));
+        $this->assertEquals('bar', $record->get('title'));
     }
 
     public function testFromStdClass()
@@ -53,8 +53,8 @@ class NamedConstructorTest extends TestCase
         ]);
 
         $this->assertInstanceOf(RecordInterface::class, $record);
-        $this->assertEquals(1, $record->id);
-        $this->assertEquals('bar', $record->title);
+        $this->assertEquals(1, $record->get('id'));
+        $this->assertEquals('bar', $record->get('title'));
     }
 
     public function testFromIterable()
@@ -65,8 +65,8 @@ class NamedConstructorTest extends TestCase
         ]);
 
         $this->assertInstanceOf(RecordInterface::class, $record);
-        $this->assertEquals(1, $record->id);
-        $this->assertEquals('bar', $record->title);
+        $this->assertEquals(1, $record->get('id'));
+        $this->assertEquals('bar', $record->get('title'));
     }
 
     public function testFromObject()
@@ -77,16 +77,16 @@ class NamedConstructorTest extends TestCase
         ]);
 
         $this->assertInstanceOf(RecordInterface::class, $record);
-        $this->assertEquals(1, $record->id);
-        $this->assertEquals('bar', $record->title);
+        $this->assertEquals(1, $record->get('id'));
+        $this->assertEquals('bar', $record->get('title'));
     }
 
     public function testFrom()
     {
         $record = Record::from(['foo' => 'bar']);
 
-        $this->assertEquals(['foo' => 'bar'], Record::from(['foo' => 'bar'])->getProperties());
-        $this->assertEquals(['foo' => 'bar'], Record::from((object)['foo' => 'bar'])->getProperties());
-        $this->assertEquals(['foo' => 'bar'], Record::from($record)->getProperties());
+        $this->assertEquals(['foo' => 'bar'], Record::from(['foo' => 'bar'])->getAll());
+        $this->assertEquals(['foo' => 'bar'], Record::from((object) ['foo' => 'bar'])->getAll());
+        $this->assertEquals(['foo' => 'bar'], Record::from($record)->getAll());
     }
 }

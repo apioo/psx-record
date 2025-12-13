@@ -20,6 +20,10 @@
 
 namespace PSX\Record;
 
+use ArrayIterator;
+use stdClass;
+use Traversable;
+
 /**
  * Record
  *
@@ -29,7 +33,6 @@ namespace PSX\Record;
  *
  * @template T
  * @implements \PSX\Record\RecordInterface<T>
- * @psalm-consistent-constructor
  */
 class Record implements RecordInterface
 {
@@ -41,7 +44,7 @@ class Record implements RecordInterface
     /**
      * @param iterable<string, T> $properties
      */
-    public function __construct(iterable $properties = [])
+    final public function __construct(iterable $properties = [])
     {
         $this->putAll($properties);
     }
@@ -224,11 +227,11 @@ class Record implements RecordInterface
     }
 
     /**
-     * @return \Traversable<string, T>
+     * @return Traversable<string, T>
      */
-    public function getIterator(): \Traversable
+    public function getIterator(): Traversable
     {
-        return new \ArrayIterator($this->getAll(), \ArrayIterator::ARRAY_AS_PROPS);
+        return new ArrayIterator($this->getAll(), ArrayIterator::ARRAY_AS_PROPS);
     }
 
     public function jsonSerialize(): object
@@ -356,24 +359,17 @@ class Record implements RecordInterface
         $this->properties = array_map($filter, $this->properties);
     }
 
-    /**
-     * @psalm-suppress UnsafeGenericInstantiation
-     */
     public static function fromIterable(iterable $data): static
     {
         return new static($data);
     }
 
-    /**
-     * @psalm-suppress UnsafeGenericInstantiation
-     */
     public static function fromObject(object $data): static
     {
         return new static(get_object_vars($data));
     }
 
     /**
-     * @psalm-suppress UnsafeGenericInstantiation
      * @param array<string, mixed> $data
      */
     public static function fromArray(array $data): static
@@ -382,10 +378,9 @@ class Record implements RecordInterface
     }
 
     /**
-     * @psalm-suppress UnsafeGenericInstantiation
      * @deprecated
      */
-    public static function fromStdClass(\stdClass $data): static
+    public static function fromStdClass(stdClass $data): static
     {
         return new static(get_object_vars($data));
     }
