@@ -33,7 +33,7 @@ use PSX\Record\Transformer;
  */
 class TransformerTest extends TestCase
 {
-    public function testToArray()
+    public function testToArray(): void
     {
         $record = Record::fromArray([
             'id' => 1,
@@ -45,7 +45,7 @@ class TransformerTest extends TestCase
         $this->assertEquals(['id' => 1, 'foo' => ['foo' => 'bar']], Transformer::toArray($record));
     }
 
-    public function testToObject()
+    public function testToObject(): void
     {
         $record = Record::fromArray([
             'id' => 1,

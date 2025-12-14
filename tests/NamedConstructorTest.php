@@ -33,7 +33,7 @@ use PSX\Record\RecordInterface;
  */
 class NamedConstructorTest extends TestCase
 {
-    public function testFromArray()
+    public function testFromArray(): void
     {
         $record = Record::fromArray([
             'id' => 1,
@@ -45,7 +45,7 @@ class NamedConstructorTest extends TestCase
         $this->assertEquals('bar', $record->get('title'));
     }
 
-    public function testFromStdClass()
+    public function testFromStdClass(): void
     {
         $record = Record::fromStdClass((object)[
             'id' => 1,
@@ -57,7 +57,7 @@ class NamedConstructorTest extends TestCase
         $this->assertEquals('bar', $record->get('title'));
     }
 
-    public function testFromIterable()
+    public function testFromIterable(): void
     {
         $record = Record::fromIterable([
             'id' => 1,
@@ -69,7 +69,7 @@ class NamedConstructorTest extends TestCase
         $this->assertEquals('bar', $record->get('title'));
     }
 
-    public function testFromObject()
+    public function testFromObject(): void
     {
         $record = Record::fromObject((object)[
             'id' => 1,
@@ -81,7 +81,7 @@ class NamedConstructorTest extends TestCase
         $this->assertEquals('bar', $record->get('title'));
     }
 
-    public function testFrom()
+    public function testFrom(): void
     {
         $record = Record::from(['foo' => 'bar']);
 

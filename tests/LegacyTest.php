@@ -33,7 +33,7 @@ use PSX\Record\RecordInterface;
  */
 class LegacyTest extends TestCase
 {
-    public function testGetProperty()
+    public function testGetProperty(): void
     {
         $record = new Record([
             'id' => 1,
@@ -44,7 +44,7 @@ class LegacyTest extends TestCase
         $this->assertEquals('bar', $record->getProperty('title'));
     }
 
-    public function testSetProperty()
+    public function testSetProperty(): void
     {
         $record = new Record([
             'id' => 1,
@@ -58,7 +58,7 @@ class LegacyTest extends TestCase
         $this->assertEquals(2, $record->getProperty('id'));
     }
 
-    public function testRemoveProperty()
+    public function testRemoveProperty(): void
     {
         $record = new Record([
             'id' => 1,
@@ -72,7 +72,7 @@ class LegacyTest extends TestCase
         $this->assertFalse($record->hasProperty('id'));
     }
 
-    public function testHasProperty()
+    public function testHasProperty(): void
     {
         $record = new Record([
             'id' => 1,
@@ -82,7 +82,7 @@ class LegacyTest extends TestCase
         $this->assertTrue($record->hasProperty('id'));
     }
 
-    public function testIsEmpty()
+    public function testIsEmpty(): void
     {
         $record = new Record([
             'id' => 1,
@@ -92,7 +92,7 @@ class LegacyTest extends TestCase
         $this->assertTrue($record->hasProperty('id'));
     }
 
-    public function testMerge()
+    public function testMerge(): void
     {
         $record = new Record([
             'id' => 1,
@@ -105,7 +105,7 @@ class LegacyTest extends TestCase
         $this->assertTrue($record->hasProperty('id'));
     }
 
-    public function testGetProperties()
+    public function testGetProperties(): void
     {
         $fields = [
             'id' => 1,
@@ -116,7 +116,7 @@ class LegacyTest extends TestCase
         $this->assertEquals($fields, $record->getProperties());
     }
 
-    public function testFilter()
+    public function testFilter(): void
     {
         $fields = [
             'id' => 1,
@@ -130,7 +130,7 @@ class LegacyTest extends TestCase
         $this->assertEquals(['title' => 'bar'], $record->getProperties());
     }
 
-    public function testMap()
+    public function testMap(): void
     {
         $fields = [
             'id' => 1,

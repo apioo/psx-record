@@ -33,7 +33,7 @@ use PSX\Record\RecordInterface;
  */
 class ApiTest extends TestCase
 {
-    public function testClear()
+    public function testClear(): void
     {
         $record = new Record([
             'id' => 1,
@@ -45,7 +45,7 @@ class ApiTest extends TestCase
         $this->assertEquals(0, $record->size());
     }
 
-    public function testContainsKey()
+    public function testContainsKey(): void
     {
         $record = new Record([
             'id' => 1,
@@ -56,7 +56,7 @@ class ApiTest extends TestCase
         $this->assertFalse($record->containsKey('foo'));
     }
 
-    public function testContainsValue()
+    public function testContainsValue(): void
     {
         $record = new Record([
             'id' => 1,
@@ -68,7 +68,7 @@ class ApiTest extends TestCase
         $this->assertFalse($record->containsValue('foo'));
     }
 
-    public function testFilter()
+    public function testFilter(): void
     {
         $record = new Record([
             'id' => 1,
@@ -82,7 +82,7 @@ class ApiTest extends TestCase
         $this->assertEquals(['title' => 'bar'], $record->getAll());
     }
 
-    public function testForEach()
+    public function testForEach(): void
     {
         $record = new Record([
             'id' => 1,
@@ -97,7 +97,7 @@ class ApiTest extends TestCase
         $this->assertEquals([1, 'bar'], $list);
     }
 
-    public function testGet()
+    public function testGet(): void
     {
         $record = new Record([
             'id' => 1,
@@ -107,7 +107,7 @@ class ApiTest extends TestCase
         $this->assertEquals(1, $record->get('id'));
     }
 
-    public function testGetAll()
+    public function testGetAll(): void
     {
         $record = new Record([
             'id' => 1,
@@ -117,7 +117,7 @@ class ApiTest extends TestCase
         $this->assertEquals(['id' => 1, 'title' => 'bar'], $record->getAll());
     }
 
-    public function testGetOrDefault()
+    public function testGetOrDefault(): void
     {
         $record = new Record([
             'id' => 1,
@@ -128,7 +128,7 @@ class ApiTest extends TestCase
         $this->assertEquals(false, $record->getOrDefault('foo', false));
     }
 
-    public function testIsEmpty()
+    public function testIsEmpty(): void
     {
         $record = new Record([
             'id' => 1,
@@ -140,7 +140,7 @@ class ApiTest extends TestCase
         $this->assertTrue($record->isEmpty());
     }
 
-    public function testKeySet()
+    public function testKeySet(): void
     {
         $record = new Record([
             'id' => 1,
@@ -150,7 +150,7 @@ class ApiTest extends TestCase
         $this->assertEquals(['id', 'title'], $record->keySet());
     }
 
-    public function testPut()
+    public function testPut(): void
     {
         $record = new Record([
             'id' => 1,
@@ -163,7 +163,7 @@ class ApiTest extends TestCase
         $this->assertEquals(['id' => 2, 'title' => 'bar', 'foo' => 2], $record->getAll());
     }
 
-    public function testPutAll()
+    public function testPutAll(): void
     {
         $record = new Record([
             'id' => 1,
@@ -175,7 +175,7 @@ class ApiTest extends TestCase
         $this->assertEquals(['id' => 2, 'title' => 'bar', 'foo' => 2], $record->getAll());
     }
 
-    public function testPutIfAbsent()
+    public function testPutIfAbsent(): void
     {
         $record = new Record([
             'id' => 1,
@@ -187,7 +187,7 @@ class ApiTest extends TestCase
         $this->assertEquals(['id' => 1, 'title' => 'bar', 'foo' => 2], $record->getAll());
     }
 
-    public function testRemove()
+    public function testRemove(): void
     {
         $record = new Record([
             'id' => 1,
@@ -200,7 +200,7 @@ class ApiTest extends TestCase
         $this->assertEquals(['title' => 'bar'], $record->getAll());
     }
 
-    public function testRemoveIfAvailable()
+    public function testRemoveIfAvailable(): void
     {
         $record = new Record([
             'id' => 1,
@@ -214,7 +214,7 @@ class ApiTest extends TestCase
         $this->assertEquals(['title' => 'bar'], $record->getAll());
     }
 
-    public function testReplace()
+    public function testReplace(): void
     {
         $record = new Record([
             'id' => 1,
@@ -227,7 +227,7 @@ class ApiTest extends TestCase
         $this->assertEquals(['id' => 2, 'title' => 'bar'], $record->getAll());
     }
 
-    public function testReplaceIfAvailable()
+    public function testReplaceIfAvailable(): void
     {
         $record = new Record([
             'id' => 1,
@@ -241,7 +241,7 @@ class ApiTest extends TestCase
         $this->assertEquals(['id' => 1, 'title' => 'bar'], $record->getAll());
     }
 
-    public function testReplaceAll()
+    public function testReplaceAll(): void
     {
         $record = new Record([
             'id' => 1,
@@ -255,7 +255,7 @@ class ApiTest extends TestCase
         $this->assertEquals(['id' => 1, 'title' => 'Bar'], $record->getAll());
     }
 
-    public function testSize()
+    public function testSize(): void
     {
         $record = new Record([
             'id' => 1,
@@ -265,7 +265,7 @@ class ApiTest extends TestCase
         $this->assertEquals(2, $record->size());
     }
 
-    public function testValues()
+    public function testValues(): void
     {
         $record = new Record([
             'id' => 1,

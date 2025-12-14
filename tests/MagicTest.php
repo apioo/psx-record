@@ -33,7 +33,7 @@ use PSX\Record\RecordInterface;
  */
 class MagicTest extends TestCase
 {
-    public function testOffsetSet()
+    public function testOffsetSet(): void
     {
         $record = new Record([
             'id' => 1,
@@ -47,7 +47,7 @@ class MagicTest extends TestCase
         $this->assertEquals(2, $record['id']);
     }
 
-    public function testOffsetExists()
+    public function testOffsetExists(): void
     {
         $record = new Record([
             'id' => 1,
@@ -57,7 +57,7 @@ class MagicTest extends TestCase
         $this->assertTrue(isset($record['id']));
     }
 
-    public function testOffsetUnset()
+    public function testOffsetUnset(): void
     {
         $record = new Record([
             'id' => 1,
@@ -71,7 +71,7 @@ class MagicTest extends TestCase
         $this->assertFalse(isset($record['id']));
     }
 
-    public function testGetMagicGetter()
+    public function testGetMagicGetter(): void
     {
         $record = new Record([
             'id' => 1,
@@ -82,7 +82,7 @@ class MagicTest extends TestCase
         $this->assertEquals('bar', $record->title);
     }
 
-    public function testOffsetGet()
+    public function testOffsetGet(): void
     {
         $record = new Record([
             'id' => 1,
@@ -93,7 +93,7 @@ class MagicTest extends TestCase
         $this->assertEquals('bar', $record['title']);
     }
 
-    public function testSetMagicSetter()
+    public function testSetMagicSetter(): void
     {
         $record = new Record([
             'id' => 1,
@@ -110,7 +110,7 @@ class MagicTest extends TestCase
         $this->assertEquals('foo', $record->title);
     }
 
-    public function testSerialize()
+    public function testSerialize(): void
     {
         $record = new Record([
             'id' => 1,
@@ -126,7 +126,7 @@ class MagicTest extends TestCase
         $this->assertEquals('bar', $record->title);
     }
 
-    public function testJsonEncode()
+    public function testJsonEncode(): void
     {
         $record = new Record([
             'id' => 1,
@@ -138,7 +138,7 @@ class MagicTest extends TestCase
         $this->assertJsonStringEqualsJsonString($expect, json_encode($record));
     }
 
-    public function testJsonEncodeEmpty()
+    public function testJsonEncodeEmpty(): void
     {
         $record = new Record([]);
 
@@ -147,7 +147,7 @@ class MagicTest extends TestCase
         $this->assertJsonStringEqualsJsonString($expect, json_encode($record));
     }
 
-    public function testBadProperty()
+    public function testBadProperty(): void
     {
         $record = new Record([
             'id' => 1,
@@ -159,7 +159,7 @@ class MagicTest extends TestCase
         $this->assertNull($result);
     }
 
-    public function testIterator()
+    public function testIterator(): void
     {
         $record = Record::fromArray(['id' => 1, 'foo' => 'bar']);
 
@@ -184,7 +184,7 @@ class MagicTest extends TestCase
         $this->assertEquals($expect, $actual);
     }
 
-    public function testIsset()
+    public function testIsset(): void
     {
         $record = Record::fromArray(['id' => 1, 'foo' => 'bar']);
 
@@ -192,7 +192,7 @@ class MagicTest extends TestCase
         $this->assertFalse(isset($record->bar));
     }
 
-    public function testUnset()
+    public function testUnset(): void
     {
         $record = Record::fromArray(['id' => 1, 'foo' => 'bar']);
 
@@ -201,7 +201,7 @@ class MagicTest extends TestCase
         $this->assertFalse(isset($record->id));
     }
 
-    public function testSetState()
+    public function testSetState(): void
     {
         $oldRecord = new Record(['id' => 1, 'foo' => 'bar']);
         $newRecord = eval('return ' . var_export($oldRecord, true) . ';');
