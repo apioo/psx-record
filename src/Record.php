@@ -21,6 +21,7 @@
 namespace PSX\Record;
 
 use ArrayIterator;
+use Closure;
 use stdClass;
 use Traversable;
 
@@ -64,12 +65,12 @@ class Record implements RecordInterface
         return in_array($value, $this->properties, true);
     }
 
-    public function filter(\Closure $filter): void
+    public function filter(Closure $filter): void
     {
         $this->properties = array_filter($this->properties, $filter);
     }
 
-    public function forEach(\Closure $callback): void
+    public function forEach(Closure $callback): void
     {
         foreach ($this->properties as $key => $value) {
             $callback($value, $key);
@@ -174,7 +175,7 @@ class Record implements RecordInterface
         }
     }
 
-    public function replaceAll(\Closure $callback): void
+    public function replaceAll(Closure $callback): void
     {
         foreach ($this->properties as $key => $value) {
             $this->properties[$key] = $callback($value, $key);
@@ -289,6 +290,7 @@ class Record implements RecordInterface
 
     /**
      * @deprecated
+     * @return array<T>
      */
     public function getProperties(): array
     {
@@ -299,6 +301,7 @@ class Record implements RecordInterface
 
     /**
      * @deprecated
+     * @param array<string, T> $properties
      */
     public function setProperties(array $properties): void
     {
@@ -307,7 +310,6 @@ class Record implements RecordInterface
 
     /**
      * @deprecated
-     * @param string $name
      * @return T
      */
     public function getProperty(string $name): mixed
@@ -317,7 +319,6 @@ class Record implements RecordInterface
 
     /**
      * @deprecated
-     * @param string $name
      * @param T $value
      */
     public function setProperty(string $name, mixed $value): void
@@ -345,6 +346,7 @@ class Record implements RecordInterface
 
     /**
      * @deprecated
+     * @param iterable<T> $record
      */
     public function merge(iterable $record): void
     {
@@ -354,11 +356,14 @@ class Record implements RecordInterface
     /**
      * @deprecated
      */
-    public function map(\Closure $filter): void
+    public function map(Closure $filter): void
     {
         $this->properties = array_map($filter, $this->properties);
     }
 
+    /**
+     * @param iterable<T> $data
+     */
     public static function fromIterable(iterable $data): static
     {
         /** @phpstan-ignore new.static */
@@ -372,7 +377,7 @@ class Record implements RecordInterface
     }
 
     /**
-     * @param array<string, mixed> $data
+     * @param array<string, T> $data
      */
     public static function fromArray(array $data): static
     {
@@ -389,6 +394,9 @@ class Record implements RecordInterface
         return new static(get_object_vars($data));
     }
 
+    /**
+     * @param iterable<T>|object $data
+     */
     public static function from(iterable|object $data): static
     {
         if (is_iterable($data)) {
