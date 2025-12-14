@@ -32,6 +32,9 @@ use stdClass;
  */
 class Transformer
 {
+    /**
+     * @return array<array-key, mixed>
+     */
     public static function toArray(JsonSerializable $record): array
     {
         $data = json_encode($record);
