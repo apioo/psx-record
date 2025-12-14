@@ -135,7 +135,7 @@ class MagicTest extends TestCase
 
         $expect = '{"id": 1, "title": "bar"}';
 
-        $this->assertJsonStringEqualsJsonString($expect, json_encode($record));
+        $this->assertJsonStringEqualsJsonString($expect, (string) json_encode($record));
     }
 
     public function testJsonEncodeEmpty(): void
@@ -144,7 +144,7 @@ class MagicTest extends TestCase
 
         $expect = '{}';
 
-        $this->assertJsonStringEqualsJsonString($expect, json_encode($record));
+        $this->assertJsonStringEqualsJsonString($expect, (string) json_encode($record));
     }
 
     public function testBadProperty(): void

@@ -220,7 +220,7 @@ class Record implements RecordInterface
 
     /**
      * @param string $offset
-     * @return T
+     * @return T|null
      */
     public function offsetGet(mixed $offset): mixed
     {
@@ -264,7 +264,7 @@ class Record implements RecordInterface
 
     /**
      * @param string $name
-     * @return T
+     * @return T|null
      */
     public function __get($name)
     {
@@ -310,7 +310,7 @@ class Record implements RecordInterface
 
     /**
      * @deprecated
-     * @return T
+     * @return T|null
      */
     public function getProperty(string $name): mixed
     {
