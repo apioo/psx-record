@@ -71,6 +71,8 @@ interface RecordInterface extends ArrayAccess, JsonSerializable, IteratorAggrega
 
     /**
      * Returns all values as array
+     *
+     * @return array<string, T>
      */
     public function getAll(): array;
 
@@ -89,6 +91,8 @@ interface RecordInterface extends ArrayAccess, JsonSerializable, IteratorAggrega
 
     /**
      * Returns an array view of the keys contained in this map
+     *
+     * @return array<string>
      */
     public function keySet(): array;
 
