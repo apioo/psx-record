@@ -44,7 +44,7 @@ class Record implements RecordInterface
     /**
      * @param iterable<string, T> $properties
      */
-    final public function __construct(iterable $properties = [])
+    public function __construct(iterable $properties = [])
     {
         $this->putAll($properties);
     }
@@ -361,11 +361,13 @@ class Record implements RecordInterface
 
     public static function fromIterable(iterable $data): static
     {
+        /** @phpstan-ignore new.static */
         return new static($data);
     }
 
     public static function fromObject(object $data): static
     {
+        /** @phpstan-ignore new.static */
         return new static(get_object_vars($data));
     }
 
@@ -374,6 +376,7 @@ class Record implements RecordInterface
      */
     public static function fromArray(array $data): static
     {
+        /** @phpstan-ignore new.static */
         return new static($data);
     }
 
@@ -382,6 +385,7 @@ class Record implements RecordInterface
      */
     public static function fromStdClass(stdClass $data): static
     {
+        /** @phpstan-ignore new.static */
         return new static(get_object_vars($data));
     }
 
@@ -399,6 +403,7 @@ class Record implements RecordInterface
      */
     public static function __set_state($array)
     {
+        /** @phpstan-ignore new.static */
         return new static($array['properties'] ?? []);
     }
 }
