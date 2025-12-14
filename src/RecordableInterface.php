@@ -29,5 +29,8 @@ namespace PSX\Record;
  */
 interface RecordableInterface
 {
+    /**
+     * @return RecordInterface<mixed>
+     */
     public function toRecord(): RecordInterface;
 }
