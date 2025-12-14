@@ -149,6 +149,8 @@ interface RecordInterface extends ArrayAccess, JsonSerializable, IteratorAggrega
 
     /**
      * Returns an array view of the values contained in this map
+     *
+     * @return array<T>
      */
     public function values(): array;
 }
